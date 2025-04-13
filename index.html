@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amiphoria - Amity University Jharkhand</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+    import { getDatabase, ref, onValue, push } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
+  
+    const firebaseConfig = {
+      apiKey: "AIzaSyB-IpLZFICs9BU94Wn87zBh70kDfHYxbyE",
+      authDomain: "amiphoria2025-01.firebaseapp.com",
+      databaseURL: "https://amiphoria2025-01-default-rtdb.firebaseio.com",
+      projectId: "amiphoria2025-01",
+      storageBucket: "amiphoria2025-01.appspot.com",
+      messagingSenderId: "602618372444",
+      appId: "1:602618372444:web:3b61f0b2699ea858856199"
+    };
+  
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+  
+    // Make Firebase refs globally accessible to script.js
+    window.firebaseRefs = {
+      db,
+      eventsRef: ref(db, 'events'),
+      leaderboardRef: ref(db, 'leaderboard'),
+      registrationsRef: ref(db, 'registrations'),
+      onValue,
+      push
+    };
+  </script>
+  
+  
+</head>
+<body>
+  <header>
+    <div class="hero">
+      <h1>🎉 Amiphoria 2025</h1>
+      <p>The Annual Cultural Fest of Amity University Jharkhand</p>
+      <div id="countdown"></div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#register">Register</a></li>
+        <li><a href="#sponsors">Sponsors</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="about">
+    <h2>About Amiphoria</h2>
+    <p>Amiphoria is the grand annual fest of Amity University Jharkhand that celebrates talent, creativity, and culture. Join us for unforgettable moments filled with music, dance, art, and more!</p>
+  </section>
+
+  <section id="events">
+    <h2>Events</h2>
+    <div id="eventList"></div>
+  </section>
+
+  <section id="gallery">
+    <h2>Gallery</h2>
+    <div class="gallery">
+      <img src="images/img1.jpg" alt="Amiphoria past event" />
+      <img src="images/img2.jpg" alt="Amiphoria celebration" />
+      <img src="images/img3.jpg" alt="Crowd enjoying" />
+    </div>
+  </section>
+
+  <section id="register">
+    <h2>Register</h2>
+    <form id="registerForm">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="email" id="email" placeholder="Your Email" required />
+      <select id="eventSelect"></select>
+      <button type="submit">Register</button>
+    </form>
+    <div id="registrationStatus"></div>
+  </section>
+
+  <section id="sponsors">
+    <h2>Our Sponsors</h2>
+    <p>We thank our amazing sponsors for supporting Amiphoria.</p>
+    <div class="sponsor-logos">
+      <img src="images/sponsor1.png" alt="Sponsor 1" />
+      <img src="images/sponsor2.png" alt="Sponsor 2" />
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>Email: contact@amiphoria.in | Phone: +91-9876543210</p>
+  </section>
+
+  <section id="leaderboard">
+    <h2>Leaderboard</h2>
+    <div id="leaderboardContent"></div>
+  </section>
+  
+
+  <footer>
+    <p>&copy; 2025 Amiphoria, Amity University Jharkhand</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

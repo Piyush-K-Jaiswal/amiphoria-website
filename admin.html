@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel - Amiphoria</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB-IpLZFICs9BU94Wn87zBh70kDfHYxbyE",
+      authDomain: "amiphoria2025-01.firebaseapp.com",
+      databaseURL: "https://amiphoria2025-01-default-rtdb.firebaseio.com",
+      projectId: "amiphoria2025-01",
+      storageBucket: "amiphoria2025-01.appspot.com",
+      messagingSenderId: "602618372444",
+      appId: "1:602618372444:web:3b61f0b2699ea858856199"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const eventsRef = ref(db, 'events');
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("eventForm");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const title = document.getElementById("title").value;
+        const date = document.getElementById("date").value;
+        const desc = document.getElementById("desc").value;
+
+        push(eventsRef, { title, date, desc })
+          .then(() => {
+            alert("✅ Event added successfully!");
+            form.reset();
+          })
+          .catch(err => alert("❌ Error: " + err.message));
+      });
+    });
+
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+
+    const auth = getAuth();
+    onAuthStateChanged(auth, user => {
+    if (!user) {
+        alert("Unauthorized. Redirecting...");
+        window.location.href = "admin-login.html";
+    }
+    });
+
+  </script>
+</head>
+<body>
+  <h1>🛠️ Admin Panel - Add Event</h1>
+  <form id="eventForm">
+    <input type="text" id="title" placeholder="Event Title" required><br>
+    <input type="date" id="date" required><br>
+    <textarea id="desc" placeholder="Event Description" required></textarea><br>
+    <button type="submit">Add Event</button>
+  </form>
+</body>
+</html>
